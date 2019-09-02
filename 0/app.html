@@ -36,10 +36,13 @@
                 if(m_name!=undefined && $vm.module_list[m_name].show!=undefined) $vm.module_list[m_name].show();
                 if($vm.active_id!=undefined){
                     $('#D'+$vm.active_id).css('height','unset');
-                    $('#D'+$vm.active_id).css('min-height',($(window).height()-$('#header').outerHeight())+"px");
-                    $('#D'+$vm.active_id).css('overflow','hidden');
+                    $('#D'+$vm.active_id).css('min-height',$vm.min_height+"px");
+                    $('#D'+$vm.active_id).css('overflow','unset');
                     $('#D'+$vm.active_id).css('overflow-x','auto');
                 }
+                if(m_name=='home') $('#D'+$vm.active_id+">div.home_page_1").css('height',$vm.min_height+"px");
+                if(m_name=='home') $("#header").css("background","rgba(0,0,0,0)");
+                else $("#header").css("background","rgba(0,0,0,0.5)");
             }
             //------------------------------------
             window.onresize=function(){set_layout();}
@@ -58,10 +61,19 @@
             I++; if(I>50){ clearInterval(loop_1); alert("header error."); }
         },100);
         //-------------------------------------
+        $(window).on('scroll', function() {
+            if($vm.active_name=='home'){
+                var y=-$(window).scrollTop()/2;
+                $('body').css({ 'background-position-y': y+'px'});
+                var r=-y/300; if(r>0.5) r=0.5;
+                $("#header").css("background","rgba(0,0,0,"+r+")");
+            }
+        });
+        //-------------------------------------
     </script>
     <style main-style>
         html,body{ margin:0; padding:0; height:100%; font-family:Arial;}
         body{background-size: cover; background-repeat: repeat-x; background-position: center top; background-attachment: fixed;}
-        .body_background_default{ background-image: url(https://image.vmiis.com/bg008.jpg);}
+        .body_background_default{ background-image: url(https://images.unsplash.com/photo-1523428096881-5bd79d043006?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80);}
     </style>
 </div>
